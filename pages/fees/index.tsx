@@ -1,5 +1,6 @@
 import AdminLayout from "../../components/AdminLayout";
 import useSWR from "swr";
+import Link from "next/link";
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
@@ -18,7 +19,8 @@ export default function FeesList() {
   return (
     <AdminLayout>
       <h2>Składki</h2>
-      <table style={{ width: "100%", background: "#fff", borderRadius: 8 }}>
+      <Link href="/fees/add"><button>➕ Dodaj składkę</button></Link>
+      <table>
         <thead>
           <tr>
             <th>Zawodnik</th>
@@ -28,6 +30,7 @@ export default function FeesList() {
           </tr>
         </thead>
         <tbody>
+          {fees?.length === 0 && <tr><td colSpan={4}>Brak składek.</td></tr>}
           {fees?.map((fee: any) => (
             <tr key={fee.id}>
               <td>{fee.player.firstName} {fee.player.lastName}</td>
