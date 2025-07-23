@@ -8,12 +8,14 @@ datasource db {
 }
 
 model Player {
-  id        Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
-  joinedAt  DateTime
-  fees      Fee[]
- stats     PlayerStats[]
+  id         Int           @id @default(autoincrement())
+  firstName  String
+  lastName   String
+  joinedAt   DateTime
+  birthDate  DateTime      // <-- DODAJ TO POLE
+  position   String        // <-- jeśli nie masz, dodaj
+  fees       Fee[]
+  stats      PlayerStats[]
 }
 
 model Fee {
