@@ -5,13 +5,14 @@ import useSWR from "swr";
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 export default function MatchesList() {
-  const { data: matches } = useSWR("/api/matches", fetcher);
+  const { data: matches, mutate } = useSWR("/api/matches", fetcher);
 
   return (
     <AdminLayout>
       <h2>Mecze</h2>
-      <Link href="/matches/add"><button style={{ marginBottom: 16 }}>➕ Dodaj mecz</button></Link>
-      <table style={{ width: "100%", background: "#fff", borderRadius: 8 }}>
+      <Link href="/matches/add"><button>➕ Dodaj mecz</button></Link>
+      <button onClick={() => mutate()} style={{ marginLeft: 8 }}>Odśwież</button>
+      <table>
         <thead>
           <tr>
             <th>Data</th>
@@ -21,6 +22,7 @@ export default function MatchesList() {
           </tr>
         </thead>
         <tbody>
+          {matches?.length === 0 && <tr><td colSpan={4}>Brak meczów.</td></tr>}
           {matches?.map((m: any) => (
             <tr key={m.id}>
               <td>{m.date?.substring(0, 10)}</td>
