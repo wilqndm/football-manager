@@ -1,30 +1,18 @@
 import AdminLayout from "../../components/AdminLayout";
 import Link from "next/link";
 import useSWR from "swr";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 export default function PlayersList() {
   const { data: players, mutate } = useSWR("/api/players", fetcher);
-  const router = useRouter();
-
-  // Odśwież listę po powrocie z /players/add
-  useEffect(() => {
-    if (router.query.refresh) {
-      mutate();
-      router.replace("/players", undefined, { shallow: true });
-    }
-  }, [router, mutate]);
 
   return (
     <AdminLayout>
       <h2>Zawodnicy</h2>
-      <Link href="/players/add">
-        <button style={{ marginBottom: 16 }}>➕ Dodaj zawodnika</button>
-      </Link>
-      <table style={{ width: "100%", background: "#fff", borderRadius: 8 }}>
+      <Link href="/players/add"><button>➕ Dodaj zawodnika</button></Link>
+      <button onClick={() => mutate()} style={{ marginLeft: 8 }}>Odśwież</button>
+      <table>
         <thead>
           <tr>
             <th>Imię</th>
@@ -35,6 +23,7 @@ export default function PlayersList() {
           </tr>
         </thead>
         <tbody>
+          {players?.length === 0 && <tr><td colSpan={5}>Brak zawodników.</td></tr>}
           {players?.map((p: any) => (
             <tr key={p.id}>
               <td>{p.firstName}</td>
