@@ -11,18 +11,18 @@ model Player {
   id        Int      @id @default(autoincrement())
   firstName String
   lastName  String
-  birthDate DateTime
-  position  String
+  joinedAt  DateTime
   fees      Fee[]
-  stats     PlayerStats[]
 }
 
 model Fee {
-  id        Int      @id @default(autoincrement())
-  player    Player   @relation(fields: [playerId], references: [id])
-  playerId  Int
-  month     DateTime
-  paid      Boolean  @default(false)
+  id          Int      @id @default(autoincrement())
+  player      Player   @relation(fields: [playerId], references: [id])
+  playerId    Int
+  amount      Float
+  paymentDate DateTime
+  periodStart DateTime
+  periodEnd   DateTime
 }
 
 model Match {
