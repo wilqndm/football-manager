@@ -13,7 +13,7 @@ export default function AddPlayer() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-    router.push("/players");
+    router.push("/players?refresh=1");
   }
 
   return (
