@@ -1,11 +1,22 @@
 import AdminLayout from "../../components/AdminLayout";
 import Link from "next/link";
 import useSWR from "swr";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 export default function PlayersList() {
-  const { data: players } = useSWR("/api/players", fetcher);
+  const { data: players, mutate } = useSWR("/api/players", fetcher);
+  const router = useRouter();
+
+  // Odśwież listę po powrocie z /players/add
+  useEffect(() => {
+    if (router.query.refresh) {
+      mutate();
+      router.replace("/players", undefined, { shallow: true });
+    }
+  }, [router, mutate]);
 
   return (
     <AdminLayout>
