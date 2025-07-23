@@ -13,6 +13,7 @@ model Player {
   lastName  String
   joinedAt  DateTime
   fees      Fee[]
+ stats     PlayerStats[]
 }
 
 model Fee {
