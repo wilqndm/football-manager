@@ -19,8 +19,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <nav style={{ background: "#004080", color: "#fff", width: 220, padding: 24, display: "flex", flexDirection: "column" }}>
         <h2>Drużyna Admin</h2>
-        <Link href="/dashboard" style={{ color: "#fff", margin: "10px 0" }}>🏠 Panel główny</Link>
-        <Link href="/players" style={{ color: "#fff", margin: "10px 0" }}>👥 Zawodnicy</Link>
+    <Link href="/dashboard" style={{ color: "#fff", margin: "10px 0" }}>🏠 Panel główny</Link>
+<Link href="/players" style={{ color: "#fff", margin: "10px 0" }}>👥 Zawodnicy</Link>
+<Link href="/matches" style={{ color: "#fff", margin: "10px 0" }}>🏟️ Mecze</Link>
+<Link href="/fees" style={{ color: "#fff", margin: "10px 0" }}>💵 Składki</Link>
         {/* Możesz dodać kolejne sekcje tu */}
         <button style={{ marginTop: "auto", background: "#c00", color: "#fff", border: 0, padding: 8, borderRadius: 4 }} onClick={logout}>Wyloguj</button>
       </nav>
